@@ -8,6 +8,11 @@ import javax.ws.rs.core.MediaType;
 
 import com.rest.ws.dto.User;
 
+/**
+ * 
+ * @author ilgin.sekeroz
+ *
+ */
 @Path("/Login")
 public class Login {
 
