@@ -2,12 +2,16 @@ package com.rest.ws.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
 
 import com.rest.ws.dto.User;
 
@@ -18,34 +22,39 @@ import com.rest.ws.dto.User;
  */
 @Path("/UserService")
 public class UserService {
+	static DBManager dbManager;
+
 	@GET
 	@Path("/users")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List listUsers() {
+	public List listUsers() throws JSONException {
 		List userList = new ArrayList();
 
-		User u1 = new User();
-		u1.setId(1);
-		u1.setName("Ilgin");
-		u1.setPassword("xxx");
-		u1.setCheck(true);
+		dbManager = new DBManager();
+		dbManager.connectDB();
 
-		User u2 = new User();
-		u2.setId(2);
-		u2.setName("Cameron");
-		u2.setPassword("pass");
-		u2.setCheck(true);
+//		Set<String> collectionNames = dbManager.getDatabase().getCollectionNames();
+//		
+//		for (final String collectionName : collectionNames) {
+//			if ("users".equalsIgnoreCase(collectionName)) {
+//				break;
+//			} else {
+//				Collection collection = new Collection();
+//				collection.createCollection();
+//			}
+//		}
 
-		User u3 = new User();
-		u3.setId(3);
-		u3.setName("Joe");
-		u3.setPassword("password");
-		u3.setCheck(true);
-
-		userList.add(u1);
-		userList.add(u2);
-		userList.add(u3);
+		Collection collection = new Collection();
+		collection.createCollection();
+		
+		JSONArray jsonArray = (JSONArray) dbManager.getAllInformation();
+		if (jsonArray != null) {
+			int len = jsonArray.length();
+			for (int i = 0; i < len; i++) {
+				userList.add(jsonArray.get(i).toString());
+			}
+		}
 
 		return userList;
 	}

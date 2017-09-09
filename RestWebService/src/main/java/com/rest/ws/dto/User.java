@@ -1,5 +1,7 @@
 package com.rest.ws.dto;
 
+import java.util.List;
+
 /**
  * 
  * @author ilgin.sekeroz
@@ -7,17 +9,14 @@ package com.rest.ws.dto;
  */
 public class User {
 
-	private int id;
 	private String name;
-	private String password;
-	private boolean check;
+	private String lastName;
+	private List<String> phones;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public User(String name, String lastName, List<String> phones) {
+		this.name = name;
+		this.lastName = lastName;
+		this.phones = phones;
 	}
 
 	public String getName() {
@@ -28,19 +27,20 @@ public class User {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public boolean isCheck() {
-		return check;
+	public List<String> getPhones() {
+		return phones;
 	}
 
-	public void setCheck(boolean check) {
-		this.check = check;
+	public void setPhones(List<String> phones) {
+		this.phones = phones;
 	}
+
 }
